@@ -17,3 +17,13 @@ constexpr std::uint64_t COIN = 100'000'000ULL;
 constexpr std::uint64_t MAX_SUPPLY = 21'000'000ULL;
 
 } // namespace slt::consensus
+constexpr std::uint64_t block_reward(std::uint64_t block_height) {
+    const std::uint64_t halvings =
+        block_height / HALVING_INTERVAL;
+
+    if (halvings >= 64) {
+        return 0;
+    }
+
+    return INITIAL_BLOCK_REWARD >> halvings;
+}
