@@ -1,0 +1,24 @@
+name: Build SLT
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Configure CMake
+        run: cmake -S . -B build
+
+      - name: Build SLT
+        run: cmake --build build --parallel
+
+      - name: Run SLT node
+        run: ./build/src/slt_node
